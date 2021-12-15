@@ -40,8 +40,8 @@ namespace MordochkaRom
                 adapter.Fill(ds);
                 dataGridViewClients.DataSource = ds.Tables[0];
                 connection.Close();
-            }
-
+            }      
+        
             string sqlExpression = "SELECT COUNT(*) FROM Client";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -71,29 +71,55 @@ namespace MordochkaRom
             toplist = Convert.ToString(viewtop);
             list = Convert.ToString(countstr);
             View("SELECT * FROM Client ORDER BY ID OFFSET " + toplist + " ROWS FETCH NEXT " + list + " ROWS ONLY;");
-            label1.Text = countlabel1 + "/" + countlabel2;
+            labelcount.Text = countlabel1 + "/" + countlabel2;
+        }
+        void labelrows()
+        {
+            rows = dataGridViewClients.Rows.Count - 1;
+            countlabel1 = rows.ToString();
+            labelcount.Text = countlabel1 + "/" + countlabel2;
+            if (Convert.ToInt32(countlabel1) == Convert.ToInt32(countlabel2))
+            {
+                btnForward.Enabled = false;
+            }
+            else
+            { btnForward.Enabled = true; }
+            btnBack.Enabled = true;
         }
         private void top10_Click(object sender, EventArgs e)
         {
             top = 10;
             str = 0;
             sheets(top, str);
-            rows = dataGridViewClients.Rows.Count - 1;           
-            countlabel1 = rows.ToString();
+            labelrows();
         }
-
         private void btnBack_Click(object sender, EventArgs e)
         {
+           
             if (str > 0)
             {
                 str = str - 1;
                 sheets(top, str);
+                rows = Convert.ToInt32(countlabel1) - dataGridViewClients.Rows.Count + 1;
+                countlabel1 = rows.ToString();
+                labelcount.Text = countlabel1 + "/" + countlabel2;
+                
             }
             else
             {
-                str = 0;
+                str = 0;                
                 btnBack.Enabled = false;
+               
             }
+            if (Convert.ToInt32(countlabel1) == Convert.ToInt32(countlabel2))
+            {
+                btnForward.Enabled = false;
+            }
+            else
+            {
+                btnForward.Enabled = true;
+            }
+
         }
 
         private void btnForward_Click(object sender, EventArgs e)
@@ -101,38 +127,36 @@ namespace MordochkaRom
             str = str + 1;            
             sheets(top, str);
             btnBack.Enabled = true;
-            rows = rows + dataGridViewClients.Rows.Count - 1;
-            
+            rows = rows + dataGridViewClients.Rows.Count - 1;            
             countlabel1 = rows.ToString();
+            labelcount.Text = countlabel1 + "/" + countlabel2;
+            if (Convert.ToInt32(countlabel1) == Convert.ToInt32(countlabel2))
+            { btnForward.Enabled = false; }
 
         }
 
         private void top50_Click(object sender, EventArgs e)
         {
+            btnForward.Enabled = true;
             top = 50;
             str = 0;
             sheets(top, str);
-            rows = dataGridViewClients.Rows.Count - 1;
-            
-            countlabel1 = rows.ToString();
+            labelrows();
         }
-
-        private void top100_Click(object sender, EventArgs e)
+            private void top100_Click(object sender, EventArgs e)
         {
+            btnForward.Enabled = true;
             top = 100;
             str = 0;
             sheets(top, str);
-            rows = dataGridViewClients.Rows.Count - 1;
-           
-            countlabel1 = rows.ToString();
+            labelrows();
         }
-
         private void topAll_Click(object sender, EventArgs e)
         {
+          
             View("SELECT * FROM Client");
-            rows = dataGridViewClients.Rows.Count - 1;
+            labelrows();
         }
-
         
 
         private void label1_Click(object sender, EventArgs e)
