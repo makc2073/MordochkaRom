@@ -45,17 +45,22 @@ namespace MordochkaRom
             this.BtnAllGender = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.SearchName = new System.Windows.Forms.TextBox();
-            this.SearchMail = new System.Windows.Forms.TextBox();
-            this.SearchPhone = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SearchPhone = new System.Windows.Forms.TextBox();
+            this.SearchMail = new System.Windows.Forms.TextBox();
+            this.SearchName = new System.Windows.Forms.TextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.Lastdate = new System.Windows.Forms.Button();
+            this.btnsortFname = new System.Windows.Forms.Button();
+            this.btnVisits = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClients)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewClients
@@ -81,7 +86,6 @@ namespace MordochkaRom
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Клиенты";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // groupBox2
             // 
@@ -224,7 +228,7 @@ namespace MordochkaRom
             this.groupBox3.Controls.Add(this.BtnMan);
             this.groupBox3.Controls.Add(this.BtnAllGender);
             this.groupBox3.Controls.Add(this.BtnWoman);
-            this.groupBox3.Location = new System.Drawing.Point(948, 134);
+            this.groupBox3.Location = new System.Drawing.Point(954, 294);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -232,7 +236,6 @@ namespace MordochkaRom
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Пол";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // groupBox4
             // 
@@ -251,41 +254,14 @@ namespace MordochkaRom
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Поиск";
             // 
-            // SearchName
+            // label3
             // 
-            this.SearchName.Location = new System.Drawing.Point(7, 23);
-            this.SearchName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.SearchName.Name = "SearchName";
-            this.SearchName.Size = new System.Drawing.Size(131, 23);
-            this.SearchName.TabIndex = 0;
-            this.SearchName.TextChanged += new System.EventHandler(this.SearchName_TextChanged);
-            // 
-            // SearchMail
-            // 
-            this.SearchMail.Location = new System.Drawing.Point(7, 55);
-            this.SearchMail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.SearchMail.Name = "SearchMail";
-            this.SearchMail.Size = new System.Drawing.Size(131, 23);
-            this.SearchMail.TabIndex = 1;
-            this.SearchMail.TextChanged += new System.EventHandler(this.SearchMail_TextChanged);
-            // 
-            // SearchPhone
-            // 
-            this.SearchPhone.Location = new System.Drawing.Point(7, 87);
-            this.SearchPhone.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.SearchPhone.Name = "SearchPhone";
-            this.SearchPhone.Size = new System.Drawing.Size(131, 23);
-            this.SearchPhone.TabIndex = 2;
-            this.SearchPhone.TextChanged += new System.EventHandler(this.SearchPhone_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(144, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 16);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "ФИО";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(144, 87);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(61, 16);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Телефон";
             // 
             // label2
             // 
@@ -296,21 +272,97 @@ namespace MordochkaRom
             this.label2.TabIndex = 4;
             this.label2.Text = "E-mail";
             // 
-            // label3
+            // label1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(144, 87);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 16);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Телефон";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(144, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 16);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "ФИО";
+            // 
+            // SearchPhone
+            // 
+            this.SearchPhone.Location = new System.Drawing.Point(7, 87);
+            this.SearchPhone.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.SearchPhone.Name = "SearchPhone";
+            this.SearchPhone.Size = new System.Drawing.Size(131, 23);
+            this.SearchPhone.TabIndex = 2;
+            this.SearchPhone.TextChanged += new System.EventHandler(this.SearchPhone_TextChanged);
+            // 
+            // SearchMail
+            // 
+            this.SearchMail.Location = new System.Drawing.Point(7, 55);
+            this.SearchMail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.SearchMail.Name = "SearchMail";
+            this.SearchMail.Size = new System.Drawing.Size(131, 23);
+            this.SearchMail.TabIndex = 1;
+            this.SearchMail.TextChanged += new System.EventHandler(this.SearchMail_TextChanged);
+            // 
+            // SearchName
+            // 
+            this.SearchName.Location = new System.Drawing.Point(7, 23);
+            this.SearchName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.SearchName.Name = "SearchName";
+            this.SearchName.Size = new System.Drawing.Size(131, 23);
+            this.SearchName.TabIndex = 0;
+            this.SearchName.TextChanged += new System.EventHandler(this.SearchName_TextChanged);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.btnVisits);
+            this.groupBox5.Controls.Add(this.Lastdate);
+            this.groupBox5.Controls.Add(this.btnsortFname);
+            this.groupBox5.Location = new System.Drawing.Point(948, 134);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(188, 140);
+            this.groupBox5.TabIndex = 14;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Сортировка";
+            // 
+            // Lastdate
+            // 
+            this.Lastdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(228)))), ((int)(((byte)(255)))));
+            this.Lastdate.Location = new System.Drawing.Point(6, 62);
+            this.Lastdate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Lastdate.Name = "Lastdate";
+            this.Lastdate.Size = new System.Drawing.Size(173, 31);
+            this.Lastdate.TabIndex = 13;
+            this.Lastdate.Text = "Последние посещения";
+            this.Lastdate.UseVisualStyleBackColor = false;
+            this.Lastdate.Click += new System.EventHandler(this.Lastdate_Click);
+            // 
+            // btnsortFname
+            // 
+            this.btnsortFname.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(228)))), ((int)(((byte)(255)))));
+            this.btnsortFname.Location = new System.Drawing.Point(6, 23);
+            this.btnsortFname.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnsortFname.Name = "btnsortFname";
+            this.btnsortFname.Size = new System.Drawing.Size(173, 31);
+            this.btnsortFname.TabIndex = 12;
+            this.btnsortFname.Text = "Фамилии А-Я";
+            this.btnsortFname.UseVisualStyleBackColor = false;
+            this.btnsortFname.Click += new System.EventHandler(this.btnsortFname_Click);
+            // 
+            // btnVisits
+            // 
+            this.btnVisits.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(228)))), ((int)(((byte)(255)))));
+            this.btnVisits.Location = new System.Drawing.Point(6, 101);
+            this.btnVisits.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnVisits.Name = "btnVisits";
+            this.btnVisits.Size = new System.Drawing.Size(173, 31);
+            this.btnVisits.TabIndex = 14;
+            this.btnVisits.Text = "Посещения";
+            this.btnVisits.UseVisualStyleBackColor = false;
+            this.btnVisits.Click += new System.EventHandler(this.btnVisits_Click);
             // 
             // FormClients
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1298, 578);
+            this.ClientSize = new System.Drawing.Size(1212, 578);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -328,6 +380,7 @@ namespace MordochkaRom
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -355,6 +408,10 @@ namespace MordochkaRom
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button btnsortFname;
+        private System.Windows.Forms.Button Lastdate;
+        private System.Windows.Forms.Button btnVisits;
     }
 }
 

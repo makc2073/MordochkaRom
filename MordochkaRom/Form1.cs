@@ -18,11 +18,6 @@ namespace MordochkaRom
             InitializeComponent();
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -64,14 +59,18 @@ namespace MordochkaRom
         string toplist;
         int top = 10;
         int rows;
-        string gender = null;
+        //string gender = null;
+        //string sortFN = null;
+        string sort;
+        int topstat;
 
         void sheets(int topstr, int str)
         {
             viewtop = topstr * str;
             toplist = Convert.ToString(viewtop);
             list = Convert.ToString(topstr);
-            View("SELECT * FROM Client ORDER BY " + gender + " ID  OFFSET " + toplist + " ROWS FETCH NEXT " + list + " ROWS ONLY");
+            //View("SELECT * FROM Client ORDER BY " + sort + " ID  OFFSET " + toplist + " ROWS FETCH NEXT " + list + " ROWS ONLY");
+            View("SELECT Client.ID, " + starttime + "  FirstName, LastName, Patronymic, Birthday,RegistrationDate, Email, Phone, GenderCode FROM Client " + where+" ORDER BY " + sort + " Client.ID  OFFSET " + toplist + " ROWS FETCH NEXT " + list + " ROWS ONLY");
             labelcount.Text = countlabel1 + "/" + countlabel2;
         }
         void labelrows()
@@ -93,6 +92,7 @@ namespace MordochkaRom
             str = 0;
             sheets(top, str);
             labelrows();
+            topstat = 10;
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
@@ -143,6 +143,7 @@ namespace MordochkaRom
             str = 0;
             sheets(top, str);
             labelrows();
+            topstat = 50;
         }
         private void top100_Click(object sender, EventArgs e)
         {
@@ -151,12 +152,14 @@ namespace MordochkaRom
             str = 0;
             sheets(top, str);
             labelrows();
+            topstat = 100;
         }
         private void topAll_Click(object sender, EventArgs e)
         {
 
             View("SELECT * FROM Client");
             labelrows();
+            topstat = 0;
         }
 
 
@@ -164,32 +167,63 @@ namespace MordochkaRom
         {
 
         }
-
-        private void groupBox3_Enter(object sender, EventArgs e)
+        void topstats(int topstat)
         {
+            if (topstat == 10)
+            {
+                top = 10;
+                str = 0;
+                sheets(top, str);
+                if (topstat == 50)
+                {
+                    top = 50;
+                    str = 0;
+                    sheets(top, str);
+                    if (topstat == 100)
+                    {
+                        top = 100;
+                        str = 0;
+                        sheets(top, str);
+                    }
+                }
+
+            }
+            else 
+            {
+                View("SELECT Client.ID, "+ starttime +" FirstName, LastName, Patronymic, Birthday,RegistrationDate, Email, Phone, GenderCode FROM Client "+where+" ORDER BY " + sort + " ID");
+            }
 
         }
         string genderSearch;
         private void BtnMan_Click(object sender, EventArgs e)
         {
-            gender = "GenderCode DESC,";
+            //sortFN = null;
+            //gender = "GenderCode DESC,";
+            sort = "GenderCode DESC,";
             genderSearch = "ORDER BY GenderCode DESC";
-            View("SELECT * FROM Client ORDER BY GenderCode DESC");
+            topstats(topstat);
+            //View("SELECT * FROM Client ORDER BY GenderCode DESC");
             labelrows();
         }
 
         private void BtnWoman_Click(object sender, EventArgs e)
         {
-            gender = "GenderCode ASC,";
+            //sortFN = null;
+            //gender = "GenderCode ASC,";
+            sort = "GenderCode ASC,";
             genderSearch = "ORDER BY GenderCode ASC";
-            View("SELECT * FROM Client ORDER BY GenderCode ASC");
+            //View("SELECT * FROM Client ORDER BY GenderCode ASC");
+            topstats(topstat);
             labelrows();
         }
 
         private void BtnAllGender_Click(object sender, EventArgs e)
         {
-            View("SELECT * FROM Client");
-            gender = null;
+            //View("SELECT * FROM Client");
+            //sortFN = null;
+            //gender = null;
+            sort = null;
+            topstats(topstat);
             labelrows();
         }
         
@@ -208,6 +242,35 @@ namespace MordochkaRom
         private void SearchPhone_TextChanged(object sender, EventArgs e)
         {
             View("SELECT * FROM Client WHERE Phone LIKE '" + SearchPhone.Text + "%'");
+            labelrows();
+        } 
+
+        private void btnsortFname_Click(object sender, EventArgs e)
+        {
+            sort = "FirstName ASC,";
+            topstats(topstat);
+            //View("SELECT * FROM Client ORDER BY FirstName ASC");
+            labelrows();
+            
+        }
+        string starttime;
+        string where;
+        private void Lastdate_Click(object sender, EventArgs e)
+        {
+            
+            sort = "StartTime DESC,";
+            starttime = "StartTime,";
+            where = ",ClientService WHERE Client.ID = ClientService.ClientID";
+            topstats(topstat);
+            //View("SELECT StartTime, FirstName, LastName, Patronymic, Birthday,RegistrationDate, Email, Phone, GenderCode FROM ClientService,Client WHERE Client.ID = ClientService.ClientID ORDER BY StartTime DESC ");
+            labelrows();
+            starttime = null;
+            where = null;
+        }
+
+        private void btnVisits_Click(object sender, EventArgs e)
+        {
+            View("SELECT COUNT(*) AS visit, FirstName, LastName, Patronymic, Birthday, RegistrationDate, Email, Phone, GenderCode FROM ClientService,Client WHERE Client.ID = ClientService.ClientID GROUP BY FirstName, LastName, Patronymic, Birthday, RegistrationDate, Email, Phone, GenderCode ORDER BY visit DESC");
             labelrows();
         }
     }
