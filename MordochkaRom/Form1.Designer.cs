@@ -52,9 +52,13 @@ namespace MordochkaRom
             this.SearchMail = new System.Windows.Forms.TextBox();
             this.SearchName = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnVisits = new System.Windows.Forms.Button();
             this.Lastdate = new System.Windows.Forms.Button();
             this.btnsortFname = new System.Windows.Forms.Button();
-            this.btnVisits = new System.Windows.Forms.Button();
+            this.btnBirthday = new System.Windows.Forms.Button();
+            this.btndelete = new System.Windows.Forms.Button();
+            this.textBoxID = new System.Windows.Forms.TextBox();
+            this.labelNameDel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClients)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -72,7 +76,7 @@ namespace MordochkaRom
             this.dataGridViewClients.Name = "dataGridViewClients";
             this.dataGridViewClients.Size = new System.Drawing.Size(904, 420);
             this.dataGridViewClients.TabIndex = 0;
-            this.dataGridViewClients.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridViewClients.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClients_CellClick);
             // 
             // groupBox1
             // 
@@ -228,7 +232,7 @@ namespace MordochkaRom
             this.groupBox3.Controls.Add(this.BtnMan);
             this.groupBox3.Controls.Add(this.BtnAllGender);
             this.groupBox3.Controls.Add(this.BtnWoman);
-            this.groupBox3.Location = new System.Drawing.Point(954, 294);
+            this.groupBox3.Location = new System.Drawing.Point(948, 350);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -310,15 +314,28 @@ namespace MordochkaRom
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.btnBirthday);
             this.groupBox5.Controls.Add(this.btnVisits);
             this.groupBox5.Controls.Add(this.Lastdate);
             this.groupBox5.Controls.Add(this.btnsortFname);
             this.groupBox5.Location = new System.Drawing.Point(948, 134);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(188, 140);
+            this.groupBox5.Size = new System.Drawing.Size(188, 209);
             this.groupBox5.TabIndex = 14;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Сортировка";
+            // 
+            // btnVisits
+            // 
+            this.btnVisits.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(228)))), ((int)(((byte)(255)))));
+            this.btnVisits.Location = new System.Drawing.Point(6, 101);
+            this.btnVisits.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnVisits.Name = "btnVisits";
+            this.btnVisits.Size = new System.Drawing.Size(173, 31);
+            this.btnVisits.TabIndex = 14;
+            this.btnVisits.Text = "Посещения";
+            this.btnVisits.UseVisualStyleBackColor = false;
+            this.btnVisits.Click += new System.EventHandler(this.btnVisits_Click);
             // 
             // Lastdate
             // 
@@ -344,17 +361,44 @@ namespace MordochkaRom
             this.btnsortFname.UseVisualStyleBackColor = false;
             this.btnsortFname.Click += new System.EventHandler(this.btnsortFname_Click);
             // 
-            // btnVisits
+            // btnBirthday
             // 
-            this.btnVisits.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(228)))), ((int)(((byte)(255)))));
-            this.btnVisits.Location = new System.Drawing.Point(6, 101);
-            this.btnVisits.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnVisits.Name = "btnVisits";
-            this.btnVisits.Size = new System.Drawing.Size(173, 31);
-            this.btnVisits.TabIndex = 14;
-            this.btnVisits.Text = "Посещения";
-            this.btnVisits.UseVisualStyleBackColor = false;
-            this.btnVisits.Click += new System.EventHandler(this.btnVisits_Click);
+            this.btnBirthday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(228)))), ((int)(((byte)(255)))));
+            this.btnBirthday.Location = new System.Drawing.Point(6, 140);
+            this.btnBirthday.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnBirthday.Name = "btnBirthday";
+            this.btnBirthday.Size = new System.Drawing.Size(173, 54);
+            this.btnBirthday.TabIndex = 15;
+            this.btnBirthday.Text = "День рождения в этом месяце";
+            this.btnBirthday.UseVisualStyleBackColor = false;
+            this.btnBirthday.Click += new System.EventHandler(this.btnBirthday_Click);
+            // 
+            // btndelete
+            // 
+            this.btndelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(228)))), ((int)(((byte)(255)))));
+            this.btndelete.Location = new System.Drawing.Point(458, 504);
+            this.btndelete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btndelete.Name = "btndelete";
+            this.btndelete.Size = new System.Drawing.Size(105, 24);
+            this.btndelete.TabIndex = 9;
+            this.btndelete.Text = "Удалить по ID";
+            this.btndelete.UseVisualStyleBackColor = false;
+            this.btndelete.Click += new System.EventHandler(this.btndelete_Click);
+            // 
+            // textBoxID
+            // 
+            this.textBoxID.Location = new System.Drawing.Point(569, 504);
+            this.textBoxID.Name = "textBoxID";
+            this.textBoxID.Size = new System.Drawing.Size(54, 23);
+            this.textBoxID.TabIndex = 15;
+            // 
+            // labelNameDel
+            // 
+            this.labelNameDel.AutoSize = true;
+            this.labelNameDel.Location = new System.Drawing.Point(629, 508);
+            this.labelNameDel.Name = "labelNameDel";
+            this.labelNameDel.Size = new System.Drawing.Size(0, 16);
+            this.labelNameDel.TabIndex = 16;
             // 
             // FormClients
             // 
@@ -362,6 +406,9 @@ namespace MordochkaRom
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1212, 578);
+            this.Controls.Add(this.labelNameDel);
+            this.Controls.Add(this.textBoxID);
+            this.Controls.Add(this.btndelete);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -382,6 +429,7 @@ namespace MordochkaRom
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -412,6 +460,10 @@ namespace MordochkaRom
         private System.Windows.Forms.Button btnsortFname;
         private System.Windows.Forms.Button Lastdate;
         private System.Windows.Forms.Button btnVisits;
+        private System.Windows.Forms.Button btnBirthday;
+        private System.Windows.Forms.Button btndelete;
+        private System.Windows.Forms.TextBox textBoxID;
+        private System.Windows.Forms.Label labelNameDel;
     }
 }
 

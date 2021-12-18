@@ -51,6 +51,7 @@ namespace MordochkaRom
         private void FormClients_Load(object sender, EventArgs e)
         {
             View("SELECT * FROM Client");
+            labelrows();
         }
 
         int str = 0;
@@ -58,9 +59,7 @@ namespace MordochkaRom
         int viewtop;
         string toplist;
         int top = 10;
-        int rows;
-        //string gender = null;
-        //string sortFN = null;
+        int rows;       
         string sort;
         int topstat;
 
@@ -72,6 +71,7 @@ namespace MordochkaRom
             //View("SELECT * FROM Client ORDER BY " + sort + " ID  OFFSET " + toplist + " ROWS FETCH NEXT " + list + " ROWS ONLY");
             View("SELECT Client.ID, " + starttime + "  FirstName, LastName, Patronymic, Birthday,RegistrationDate, Email, Phone, GenderCode FROM Client " + where+" ORDER BY " + sort + " Client.ID  OFFSET " + toplist + " ROWS FETCH NEXT " + list + " ROWS ONLY");
             labelcount.Text = countlabel1 + "/" + countlabel2;
+
         }
         void labelrows()
         {
@@ -99,9 +99,10 @@ namespace MordochkaRom
 
             if (str > 0)
             {
+                rows = Convert.ToInt32(countlabel1) - dataGridViewClients.Rows.Count + 1;
                 str = str - 1;
                 sheets(top, str);
-                rows = Convert.ToInt32(countlabel1) - dataGridViewClients.Rows.Count + 1;
+                //rows = Convert.ToInt32(countlabel1) - dataGridViewClients.Rows.Count + 1;
                 countlabel1 = rows.ToString();
                 labelcount.Text = countlabel1 + "/" + countlabel2;
 
@@ -197,31 +198,28 @@ namespace MordochkaRom
         string genderSearch;
         private void BtnMan_Click(object sender, EventArgs e)
         {
-            //sortFN = null;
-            //gender = "GenderCode DESC,";
+            starttime = null;
+            where = null;           
             sort = "GenderCode DESC,";
             genderSearch = "ORDER BY GenderCode DESC";
-            topstats(topstat);
-            //View("SELECT * FROM Client ORDER BY GenderCode DESC");
+            topstats(topstat);        
             labelrows();
         }
 
         private void BtnWoman_Click(object sender, EventArgs e)
         {
-            //sortFN = null;
-            //gender = "GenderCode ASC,";
+            starttime = null;
+            where = null;           
             sort = "GenderCode ASC,";
-            genderSearch = "ORDER BY GenderCode ASC";
-            //View("SELECT * FROM Client ORDER BY GenderCode ASC");
+            genderSearch = "ORDER BY GenderCode ASC";           
             topstats(topstat);
             labelrows();
         }
 
         private void BtnAllGender_Click(object sender, EventArgs e)
         {
-            //View("SELECT * FROM Client");
-            //sortFN = null;
-            //gender = null;
+            starttime = null;
+            where = null;            
             sort = null;
             topstats(topstat);
             labelrows();
@@ -229,6 +227,7 @@ namespace MordochkaRom
         
         private void SearchName_TextChanged(object sender, EventArgs e)
         {
+            
             View("SELECT * FROM Client  WHERE (FirstName LIKE '" + SearchName.Text+ "%') OR (LastName LIKE '" + SearchName.Text+ "%') OR (Patronymic LIKE '" + SearchName.Text + "%') " + genderSearch + "");
             labelrows();
         }
@@ -247,11 +246,11 @@ namespace MordochkaRom
 
         private void btnsortFname_Click(object sender, EventArgs e)
         {
+
             sort = "FirstName ASC,";
             topstats(topstat);
-            //View("SELECT * FROM Client ORDER BY FirstName ASC");
-            labelrows();
             
+            labelrows();            
         }
         string starttime;
         string where;
@@ -261,17 +260,61 @@ namespace MordochkaRom
             sort = "StartTime DESC,";
             starttime = "StartTime,";
             where = ",ClientService WHERE Client.ID = ClientService.ClientID";
-            topstats(topstat);
-            //View("SELECT StartTime, FirstName, LastName, Patronymic, Birthday,RegistrationDate, Email, Phone, GenderCode FROM ClientService,Client WHERE Client.ID = ClientService.ClientID ORDER BY StartTime DESC ");
+            topstats(topstat);            
             labelrows();
-            starttime = null;
-            where = null;
+            
         }
-
         private void btnVisits_Click(object sender, EventArgs e)
         {
             View("SELECT COUNT(*) AS visit, FirstName, LastName, Patronymic, Birthday, RegistrationDate, Email, Phone, GenderCode FROM ClientService,Client WHERE Client.ID = ClientService.ClientID GROUP BY FirstName, LastName, Patronymic, Birthday, RegistrationDate, Email, Phone, GenderCode ORDER BY visit DESC");
             labelrows();
+        }
+        private void btnBirthday_Click(object sender, EventArgs e)
+        {
+            starttime = null;
+            where = null;
+            sort = "DAY(Birthday) DESC,";
+            where = "WHERE ABS(Month(GETDATE()) - MONTH(Birthday)) = 0";
+            topstats(topstat);
+            labelrows();
+        }
+        int c;
+        private void btndelete_Click(object sender, EventArgs e)
+        {
+
+            DialogResult result = MessageBox.Show(
+        "Удалить пользователя "+labelNameDel.Text+"?",
+        "Сообщение",
+        MessageBoxButtons.YesNo,
+        MessageBoxIcon.Information,
+        MessageBoxDefaultButton.Button1,
+        MessageBoxOptions.DefaultDesktopOnly);
+
+            if (result == DialogResult.Yes)
+            {
+                string sqlExpression = "DELETE FROM Client WHERE ID = " + textBoxID.Text + "";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    int number = command.ExecuteNonQuery();
+                    connection.Close();
+
+                }
+                dataGridViewClients.Rows.RemoveAt(c);
+                MessageBox.Show("Успешно");
+            }
+           
+                
+
+            this.TopMost = true;
+        }
+        private void dataGridViewClients_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            c = dataGridViewClients.CurrentCell.RowIndex;
+            textBoxID.Text = dataGridViewClients.Rows[c].Cells[0].Value.ToString();
+            labelNameDel.Text = dataGridViewClients.Rows[c].Cells[1].Value.ToString();
+           
         }
     }
 }
